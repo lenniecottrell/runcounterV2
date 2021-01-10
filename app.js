@@ -21,7 +21,11 @@ const heartIcon = `far fa-heart mx-2`;
 message.innerHTML = 'submit';
 
 //api fetch
-
+fetch('http://localhost:5000/run_total')
+    .then(function(){
+    (response => response.json())})
+    .catch(function(){
+    (data => console.log(data))});
 
 //button switcher
 submit.addEventListener('click', function(){
@@ -42,19 +46,19 @@ submit.addEventListener('click', function(){
 
 });
 
-const updateDisplay = function(){
+const updateDisplay = function() {
     icon.className = heartIcon;
     today.classList.remove('collapse');
     // today.innerHTML = ;
 //left.classList.remove('collapse');
-left.innerHTML = (2021 - runTotal);
+// left.innerHTML = (2021 - runTotal);
 lastRun.innerHTML = userMiles.value;
 // submit.classList.add('disabled');
-}
+};
 
-getStats(){
-    const response = fetch('http//localhost:5000/run_total/run_total');
-    const runTotal = response.json();
-    left.innerHTML = (2021 - runTotal);
-    return runTotal;
-    }
+// getStats(){
+//     const response = fetch('http//localhost:5000/run_total/run_total');
+//     const runTotal = response.json();
+//     left.innerHTML = (2021 - runTotal);
+//     return runTotal;
+// }
