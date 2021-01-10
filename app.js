@@ -1,3 +1,5 @@
+// const { response } = require("express");
+
 //bring in DOM elements
 const title = document.getElementById('title');
 const bigTotal = document.getElementById('bigTotal');
@@ -17,6 +19,10 @@ const printTotal = document.getElementById('printTotal');
 const runIcon = `fas fa-running mx-2`;
 const heartIcon = `far fa-heart mx-2`;
 message.innerHTML = 'submit';
+
+//api fetch
+
+
 //button switcher
 submit.addEventListener('click', function(){
 
@@ -39,8 +45,16 @@ submit.addEventListener('click', function(){
 const updateDisplay = function(){
     icon.className = heartIcon;
     today.classList.remove('collapse');
+    // today.innerHTML = ;
 //left.classList.remove('collapse');
-//left.innerHTML = (2021 - total);
+left.innerHTML = (2021 - runTotal);
 lastRun.innerHTML = userMiles.value;
 // submit.classList.add('disabled');
 }
+
+getStats(){
+    const response = fetch('http//localhost:5000/run_total/run_total');
+    const runTotal = response.json();
+    left.innerHTML = (2021 - runTotal);
+    return runTotal;
+    }
