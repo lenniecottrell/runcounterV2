@@ -29,7 +29,11 @@ db.connect((err) => {
 // });
 
 app.post('/stats', (req, res) => {
-    const sql = 'INSERT INTO `stats` (`id`, `run_date`, `run_length`, `run_total`) VALUES (?, ?, ?, ?)';
+    //get values from req
+    let run_date = Date();
+    let run_length = req.body.run_length;
+    let run_total = req.body.total;
+    const sql = 'INSERT INTO `stats` (`id`, `run_date`, `run_length`, `run_total`) VALUES (?, ?, ?, ?)'; //plug values into sql?!
     db.query(sql, (err, result) => {
         if (err) throw 'bad vibe';
         res.send(result);

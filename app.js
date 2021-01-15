@@ -1,6 +1,5 @@
 // const { response } = require("express");
 
-
 //bring in DOM elements
 const title = document.getElementById('title');
 const bigTotal = document.getElementById('bigTotal');
@@ -15,6 +14,8 @@ const message = document.getElementById('message');
 const lastRunDiv = document.getElementById('lastRunDiv');
 const milesRemainingDiv = document.getElementById('milesRemainingDiv');
 
+
+
 //font awesome
 const runIcon = `fas fa-running mx-2`;
 const heartIcon = `far fa-heart mx-2`;
@@ -24,8 +25,7 @@ message.innerHTML = 'submit';
 let today = new Date();
 let from_date = new Date('2021/12/31')
 let difference = from_date>today ? from_date-today : today-from_date
-let datedif = Math.floor(difference/(1000*3600*24))
-console.log(datedif);
+let datedif = Math.floor(difference/(1000*3600*24));
 
 
                 //api FETCH all <is this needed?
@@ -44,18 +44,9 @@ let getStats = function(stats){
 };
 getStats(stats);
 //
-let newRun = function() {
-fetch('http://localhost:5000/stats'), {
-    method: 'POST',
-    body: JSON.stringify({
-    id: (lastID + 1),
-    run_date: run_date,
-    run_length: userMiles.value,
-    run_total: userMiles.value + run_total,
-    })
-};
-};
-});
+
+}
+);
 
 
                 //api FETCH run_total
@@ -96,6 +87,32 @@ setReqDailyAvg(runTotal, datedif);
 //     })
 // });
 
+const newRun = function() {
+let total = parseFloat(bigTotal.innerHTML);
+let run_date = Date();
+let run_length = parseFloat(lastRun.innerHTML);
+    fetch('http://localhost:5000/stats', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+        run_date: Date(),
+        run_length: run_length,
+        run_total: run_length + total,
+        }),
+    });
+};
+const updateDisplay = function() {
+    icon.className = heartIcon;
+    lastRunDiv.classList.remove('collapse');
+    lastRun.innerHTML = userMiles.value;
+    milesRemainingDiv.classList.remove('collapse');
+    milesRemaining.classList.remove('collapse');
+    reqDailyAvgDiv.classList.remove('collapse');
+    //submit.classList.add('disabled');
+};
+
 //button switcher
 submit.addEventListener('click', function(){
 
@@ -115,12 +132,6 @@ submit.addEventListener('click', function(){
     newRun();
 });
 
-const updateDisplay = function() {
-    icon.className = heartIcon;
-lastRunDiv.classList.remove('collapse');
-lastRun.innerHTML = userMiles.value;
-milesRemainingDiv.classList.remove('collapse');
-milesRemaining.classList.remove('collapse');
-reqDailyAvgDiv.classList.remove('collapse');
-//submit.classList.add('disabled');
-};
+// 'Access-Control-Allow-Origin': 'http://127.0.0.1:5500/index.html'
+// 'Access-Control-Allow-Methods': 'GET, POST, PUT'
+// 'Access-Control-Allow-Headers': 'Content-Type'
